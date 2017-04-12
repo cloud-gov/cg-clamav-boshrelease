@@ -8,6 +8,7 @@ templates:
  bin/database_error.sh.erb : bin/database_error.sh
  bin/database_outdated.sh.erb : bin/database_outdated.sh
  bin/virus_detected.sh.erb : bin/virus_detected.sh
+ bin/update-textfile.sh.erb : bin/update-textfile.sh
 
  conf/freshclam.conf.erb : conf/freshclam.conf
  conf/clamd.conf.erb : conf/clamd.conf
@@ -19,4 +20,3 @@ properties:
   clamav.dbMirror2:
     description: "Secondary virus definition update host"
     default: database.clamav.net
-
