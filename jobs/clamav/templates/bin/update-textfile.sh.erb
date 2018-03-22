@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -eux
+
+TMPFILE=/var/vcap/jobs/clamav/config/clamav.prom
+TEXTFILE_DIR=/var/vcap/jobs/node_exporter/config
+
+if [ -e "${TMPFILE}" ] && [ -d "${TEXTFILE_DIR}" ]; then
+  mv ${TMPFILE} "${TEXTFILE_DIR}"
+fi

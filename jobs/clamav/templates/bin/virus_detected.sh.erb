@@ -1,3 +1,11 @@
 #!/bin/sh
 
+TMPFILE=/var/vcap/jobs/clamav/config/clamav.prom
+TEXTFILE_DIR=/var/vcap/jobs/node_exporter/config
+
 /var/vcap/jobs/riemannc/bin/riemannc --host `hostname` --service "clamav" --state "critical" --description "$CLAM_VIRUSEVENT_FILENAME has a virus called $CLAM_VIRUSEVENT_VIRUSNAME"
+
+if [ -d "${TEXTFILE_DIR}" ]; then
+  echo "clamav_alert{filename=\"${CLAM_VIRUSEVENT_FILENAME}\",virusname=\"${CLAM_VIRUSEVENT_VIRUSNAME}\"} 1 $(date +%s%3N)" \
+    >> "${TMPFILE}"
+fi
