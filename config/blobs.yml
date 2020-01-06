@@ -2,3 +2,7 @@ clamav/clamav-0.101.1.tar.gz:
   size: 21691396
   object_id: 7ae1d888-736a-45af-716b-103daa4f1905
   sha: 7a62cce441383096b73c5e23b10d18bd6553b1e1
+clamav/clamav-0.102.1.tar.gz:
+  size: 13215586
+  object_id: fd71c94c-de98-4aa5-63d4-482ef1f382c0
+  sha: sha256:0dbda8d0d990d068732966f13049d112a26dce62145d234383467c1d877dedd6
