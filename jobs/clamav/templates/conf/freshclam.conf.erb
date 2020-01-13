@@ -1,9 +1,12 @@
-LogFileMaxSize 1M
+# disable log rotation since it's currently broken - freshclam currently rotates the log file,
+# then writes to the rotated file, so in either case, the file grows without bounds, but 
+# with rotation enabled, monit gets confused
+#LogFileMaxSize 1M
+LogRotate false
 LogTime true
 LogSyslog true
 LogFacility LOG_LOCAL6
 LogVerbose false
-LogRotate true
 PidFile /var/vcap/sys/run/clamav/freshclam.pid
 DatabaseDirectory /var/vcap/packages/clamav/database
 Foreground false
