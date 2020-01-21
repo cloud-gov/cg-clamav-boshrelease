@@ -12,6 +12,6 @@ check process freshclam
   group vcap
 
 check file clamav_defs_are_current with path /var/vcap/packages/clamav/database/defs_are_current
-  if timestamp > 2 hours then alert
+  if not exist then alert
   depends on freshclam
   group vcap
