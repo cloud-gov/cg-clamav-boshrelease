@@ -15,3 +15,8 @@ check file clamav_defs_are_current with path /var/vcap/packages/clamav/database/
   if timestamp > 2 hours then alert
   depends on freshclam
   group vcap
+
+check file freshclam.log with path /var/vcap/sys/log/clamav/freshclam.log
+  if timestamp > 2 hours then alert
+  depends on freshclam
+  group vcap
