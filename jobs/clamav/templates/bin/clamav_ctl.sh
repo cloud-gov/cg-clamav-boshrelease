@@ -20,6 +20,7 @@ case "$1" in
 	  sleep 1
 	;;
 	'start_freshclam')
+		sleep 20
 	  $PKG_LOC/bin/freshclam -d --config-file /var/vcap/jobs/clamav/conf/freshclam.conf
 	;;
 	'stop_clamd')
