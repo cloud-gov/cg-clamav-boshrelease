@@ -23,10 +23,18 @@ case "$1" in
 		sleep 20
 	  $PKG_LOC/bin/freshclam -d --config-file /var/vcap/jobs/clamav/conf/freshclam.conf
 	;;
+	'start_clamav_on_access')
+		sleep 20
+		$PKG_LOC/sbin/clamonacc -c /var/vcap/jobs/clamav/conf/clamd.conf
+		sleep 1
+	;;
 	'stop_clamd')
 	  kill -9 `pidof clamd`
 	;;
 	'stop_freshclam')
 	  kill -9 `pidof freshclam`
+	;;
+	'stop_clamav_on_access')
+		kill -9 `pidof clamav_on_access`
 	;;
 esac

@@ -19,4 +19,6 @@ properties:
   clamav.dbMirror2:
     description: "Secondary virus definition update host"
     default: database.clamav.net
-
+  clamav.on_access_enabled:
+    description: "Enable on-access scanning with ClamAV"
+    default: false
