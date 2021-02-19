@@ -26,7 +26,7 @@ case "$1" in
 	;;
 	'start_clamav_on_access')
 		sleep 20
-		$PKG_LOC/sbin/clamonacc -p 5 --wait --config-file=/var/vcap/jobs/clamav/conf/clamd.conf --log=${LOG_DIR}/clamav_on_access.log 
+		$PKG_LOC/sbin/clamonacc -c /var/vcap/jobs/clamav/conf/clamd.conf -l ${LOG_DIR}/clamav_on_access.log 
 		sleep 1
 	;;
 	'stop_clamd')
