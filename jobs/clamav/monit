@@ -16,7 +16,7 @@ check file clamav_defs_are_current with path /var/vcap/packages/clamav/database/
   depends on freshclam
   group vcap
 
-<% if ("clamav.on_access_enabled") == 'true' %>
+<% if p("clamav.on_access_enabled") == true %>
 check process clamav_on_access
   with pidfile /var/vcap/sys/run/clamav/clamav_on_access.pid
   start program "/var/vcap/jobs/clamav/bin/clamav_ctl.sh start_clamav_on_access" with timeout 500 seconds
