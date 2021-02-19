@@ -30,7 +30,7 @@ case "$1" in
 		sleep 1
 	;;
 	'stop_clamd')
-	  kill -9 `pidof clamd`
+	  pkill clamonacc
 	;;
 	'stop_freshclam')
 	  kill -9 `pidof freshclam`

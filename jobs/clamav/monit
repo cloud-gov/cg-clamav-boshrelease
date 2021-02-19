@@ -18,7 +18,7 @@ check file clamav_defs_are_current with path /var/vcap/packages/clamav/database/
 
 <% if p("clamav.on_access_enabled") == true %>
 check process clamavonaccess
-  with pidfile /var/vcap/sys/run/clamav/clamavonaccess.pid
+  matching "clamonacc"
   start program "/var/vcap/jobs/clamav/bin/clamav_ctl.sh start_clamavonaccess" with timeout 500 seconds
   stop program "/var/vcap/jobs/clamav/bin/clamav_ctl.sh stop_clamavonaccess"
   depends on clamd
