@@ -70,3 +70,7 @@ OnAccessPrevention false
 ExcludePath ^/var/vcap/data/packages/
 OnAccessExcludePath ^/var/vcap/data/packages/
 TemporaryDirectory /var/vcap/data/tmp
+OnAccessIncludePath /var/vcap/data
+OnAccessExcludeUname root
+OnAccessExcludeUname clamd
+OnAccessExcludeRootUID true
