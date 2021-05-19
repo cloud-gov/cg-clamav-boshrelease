@@ -3,7 +3,7 @@ name: clamav
 packages:
 - clamav
 templates:
- pre-start.erb: bin/pre-start
+ bin/pre-start.erb: bin/pre-start
  bin/clamav_ctl.sh : bin/clamav_ctl.sh
  bin/database_updated.sh.erb : bin/database_updated.sh
  bin/database_error.sh.erb : bin/database_error.sh
