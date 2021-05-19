@@ -3,12 +3,14 @@ name: clamav
 packages:
 - clamav
 templates:
+ pre-start.erb: bin/pre-start
  bin/clamav_ctl.sh : bin/clamav_ctl.sh
  bin/database_updated.sh.erb : bin/database_updated.sh
  bin/database_error.sh.erb : bin/database_error.sh
  bin/database_outdated.sh.erb : bin/database_outdated.sh
  bin/virus_detected.sh.erb : bin/virus_detected.sh
 
+ conf/clamdsched.erb : conf/clamdsched.d
  conf/freshclam.conf.erb : conf/freshclam.conf
  conf/clamd.conf.erb : conf/clamd.conf
 
@@ -22,3 +24,23 @@ properties:
   clamav.on_access_enabled:
     description: "Enable on-access scanning with ClamAV"
     default: false
+  clamav.schedule_enabled:
+    description: "Enable scheduled scanning with ClamAV"
+    default: false
+  clamav.cron.schedule:
+    description: "Cron format schedule when ClamAV scheduled scans should run. This will override any set nightly schedule"
+  clamav.nightly.scan:
+    description: "Single ClamAV scan done at night at a random interval between clamav.nightly.scan.start and clamav.nightly.scan.stop"
+    default: true
+  clamav.nightly.scan.start:
+    description: "Start hour (UTC) to schedule nightly ClamAV scan"
+    default: 0
+  clamav.nightly.scan.stop:
+    description: "Stop hour (UTC) to schedule nightly ClamAV scan"
+    default: 5
+  clamav.include_directories:
+    description: "Directories in an array that you want ClamAV to scan"
+  clamav.exclude_directories:
+    description: "Directories in an array that you want ClamAV to not scan"
+  clamav.additional.options:
+    description: "Additional ClamAV options to be added to clamd.conf"

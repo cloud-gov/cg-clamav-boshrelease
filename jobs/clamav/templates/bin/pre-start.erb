@@ -1,0 +1,32 @@
+#!/bin/bash
+
+minute=$(expr $RANDOM % 60)
+hour=$(shuf -i <%= p('clamav.nightly.scan.start') %>-<%= p('clamav.nightly.scan.stop') %> -n 1)
+
+echo "Pre-start started"
+
+<% if p("clamav.schedule_enabled") == true %>
+
+  echo "Processing ClamAV scheduling options"
+
+  <% if p("clamav.cron.schedule")  == nil %>
+
+    echo "ClamAV scedhule was enabled but no cron schedule set so we default to nightly scan"
+
+    sed -i 's/0 0/$hour $minute/' /var/vcap/jobs/clamav/conf/clamdsched.d
+    cp /var/vcap/jobs/clamav/conf/clamdsched.d /etc/cron.d/
+    touch /etc/crontab # touch to help ensure cron reloads
+  <% end %>
+
+  <% if p("clamav.cron.schedule")  != nil %>
+
+    echo "ClamAV cron schedule was set in manifest"
+    
+    sed -i 's/0 0 \* \* \*/<%= p('clamav.cron.schedule') %>' /var/vcap/jobs/clamav/conf/clamdsched.d
+    cp /var/vcap/jobs/clamav/conf/clamdsched.d /etc/cron.d/
+    touch /etc/crontab # touch to help ensure cron reloads
+  <% end %>
+
+echo "Pre-start finished"
+
+<% end %>

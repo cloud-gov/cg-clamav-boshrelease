@@ -61,16 +61,30 @@ ScanArchive true
 ArchiveBlockEncrypted false
 ForceToDisk false
 ScanOnAccess true
+ExcludePath ^/var/vcap/data/packages/
+TemporaryDirectory /var/vcap/data/tmp
+<% if p("clamav.on_access_enabled") == true %>
 OnAccessMountPath /
 OnAccessMountPath /home
 OnAccessMountPath /var/vcap/data
 OnAccessMountPath /var/vcap/store
 OnAccessDisableDDD false
 OnAccessPrevention false
-ExcludePath ^/var/vcap/data/packages/
-OnAccessExcludePath ^/var/vcap/data/packages/
-TemporaryDirectory /var/vcap/data/tmp
 OnAccessIncludePath /var/vcap/data
 OnAccessExcludeUname root
 OnAccessExcludeUname clamd
 OnAccessExcludeRootUID true
+OnAccessExcludePath ^/var/vcap/data/packages/
+<% end %>
+# User include access paths
+<% if p("clamav.include_directories") do |indir| %>
+    OnAccessIncludePath <%= indir %>
+<% end %>
+# User exlude access paths
+<% if p("clamav.exclude_directories") do |exdir| %>
+    OnAccessExcludePath <%= exdir %>
+<% end %>
+# User manifest options
+<% if p("clamav.additional.options") do |addop| %>
+    <%= addop %>
+<% end %>
