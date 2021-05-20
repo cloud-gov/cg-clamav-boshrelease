@@ -93,8 +93,9 @@ OnAccessExcludePath <%= exdir %>
 <% end %>
 
 # Additional Options
-<% if_p("clamav.additional_options") do |options| %>
-<% options.each do |op| %>
-<%= op %>
+<% if_p("additional_options") do |aopt| %>
+<% aopt.each do |opt| %>
+inside additional_options
+<%= opt %>
 <% end %>
 <% end %>
