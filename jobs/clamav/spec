@@ -41,5 +41,5 @@ properties:
     description: "Directories in an array that you want ClamAV to scan"
   clamav.exclude_directories:
     description: "Directories in an array that you want ClamAV to not scan"
-  clamav.additional.options:
+  clamav.additional_options:
     description: "Additional ClamAV options to be added to clamd.conf"
