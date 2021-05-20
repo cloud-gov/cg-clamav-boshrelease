@@ -84,7 +84,3 @@ OnAccessExcludePath ^/var/vcap/data/packages/
 <% if p("clamav.exclude_directories") do |exdir| %>
     OnAccessExcludePath <%= exdir %>
 <% end %>
-# User manifest options
-<% if p("clamav.additional.options") do |addop| %>
-    <%= addop %>
-<% end %>
