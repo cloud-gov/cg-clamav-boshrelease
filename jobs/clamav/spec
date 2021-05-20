@@ -31,7 +31,6 @@ properties:
     description: "Cron format schedule when ClamAV scheduled scans should run. This will override any set nightly schedule"
   clamav.nightly.scan:
     description: "Single ClamAV scan done at night at a random interval between clamav.nightly.scan.start and clamav.nightly.scan.stop"
-    default: true
   clamav.nightly.scan.start:
     description: "Start hour (UTC) to schedule nightly ClamAV scan"
     default: 0
