@@ -76,11 +76,17 @@ OnAccessExcludeUname clamd
 OnAccessExcludeRootUID true
 OnAccessExcludePath ^/var/vcap/data/packages/
 <% end %>
+
 # User include access paths
-<% if p("clamav.include_directories") do |indir| %>
+<% if p("clamav.include_directories") do |indirs| %>
+<% indirs.each do |k, indir| %>
     OnAccessIncludePath <%= indir %>
 <% end %>
+<% end %>
+
 # User exlude access paths
-<% if p("clamav.exclude_directories") do |exdir| %>
+<% if p("clamav.exclude_directories") do |exdirs| %>
+<% exdirs.each do |k, exdir| %>
     OnAccessExcludePath <%= exdir %>
+<% end %>
 <% end %>
