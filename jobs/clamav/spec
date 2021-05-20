@@ -23,8 +23,10 @@ properties:
     default: database.clamav.net
   clamav.on_access_enabled:
     description: "Enable on-access scanning with ClamAV"
+    default: false
   clamav.schedule_enabled:
     description: "Enable scheduled scanning with ClamAV"
+    default: false
   clamav.cron.schedule:
     description: "Cron format schedule when ClamAV scheduled scans should run. This will override any set nightly schedule"
   clamav.nightly.scan:
