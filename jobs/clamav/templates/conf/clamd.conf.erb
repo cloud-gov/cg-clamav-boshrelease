@@ -63,6 +63,7 @@ ForceToDisk false
 ScanOnAccess true
 ExcludePath ^/var/vcap/data/packages/
 TemporaryDirectory /var/vcap/data/tmp
+
 <% if p("clamav.on_access_enabled") == true %>
 OnAccessMountPath /
 OnAccessMountPath /home

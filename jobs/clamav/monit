@@ -16,7 +16,11 @@ check file clamav_defs_are_current with path /var/vcap/packages/clamav/database/
   depends on freshclam
   group vcap
 
-<% if p("clamav.on_access_enabled") == true %>
+<%
+clamav_onaccess=p("clamav.on_access_enabled", "false")
+%>
+
+<% if clamav_onaccess.to_s == "true" %>
 check process clamavonaccess
   matching "clamonacc"
   start program "/var/vcap/jobs/clamav/bin/clamav_ctl.sh start_clamavonaccess" with timeout 500 seconds
