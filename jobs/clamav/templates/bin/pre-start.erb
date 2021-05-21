@@ -18,13 +18,14 @@ echo "Pre-start started"
   touch /etc/crontab # touch to help ensure cron reloads
   <% end %>
 
+else
+
   echo "ClamAV scedhule was enabled but no cron schedule set so we default to nightly scan"
 
   sed -i "s/0 0/$HOUR $MINUTE/" /var/vcap/jobs/clamav/conf/clamdsched.d
   cp /var/vcap/jobs/clamav/conf/clamdsched.d /etc/cron.d/
   touch /etc/crontab # touch to help ensure cron reloads
 
+<% end %>
 
 echo "Pre-start finished"
-
-<% end %>
