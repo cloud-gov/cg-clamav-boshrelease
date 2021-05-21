@@ -37,5 +37,6 @@ case "$1" in
 	;;
 	'stop_clamavonaccess')
 		kill -9 `pidof clamavonaccess`
+		kill -9 `pidof clamonacc`
 	;;
 esac
