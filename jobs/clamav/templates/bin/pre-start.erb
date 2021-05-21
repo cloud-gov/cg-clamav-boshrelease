@@ -18,7 +18,7 @@ echo "Pre-start started"
   touch /etc/crontab # touch to help ensure cron reloads
   <% end %>
 
-else
+<% else %>
 
   echo "ClamAV scedhule was enabled but no cron schedule set so we default to nightly scan"
 
