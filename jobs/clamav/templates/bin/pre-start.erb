@@ -23,9 +23,7 @@ echo "Pre-start started"
 
   echo "Adding Include directories of $SCEDSCANDIR"
   sed -i "s@temp_holder@$SCANDIRS@" /var/vcap/jobs/clamav/conf/clamdsched.d
-  cp /var/vcap/jobs/clamav/conf/clamdsched.d /etc/cron.d/
-  chmod 0700 /etc/cron.d/clamdsched.d
-  chown root: /etc/cron.d/clamdsched.d
+  cp /var/vcap/jobs/clamav/conf/clamdsched.d /etc/cron.d/clamdav
   touch /etc/crontab # touch to help ensure cron reloads
   <% end %>
 
@@ -34,9 +32,7 @@ echo "Pre-start started"
   echo "ClamAV scedhule was enabled but no cron schedule set so we default to nightly scan"
 
   sed -i "s/0 0/$HOUR $MINUTE/" /var/vcap/jobs/clamav/conf/clamdsched.d
-  cp /var/vcap/jobs/clamav/conf/clamdsched.d /etc/cron.d/
-  chmod 0700 /etc/cron.d/clamdsched.d
-  chown root: /etc/cron.d/clamdsched.d
+  cp /var/vcap/jobs/clamav/conf/clamdsched.d /etc/cron.d/clamav
   touch /etc/crontab # touch to help ensure cron reloads
 
 <% end %>
