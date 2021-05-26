@@ -8,6 +8,7 @@ if [ ! -d "${LOG_DIR}" ]; then
 	mkdir -p ${LOG_DIR}
 	touch ${LOGDIR}/freshclam.log
 	touch ${LOG_DIR}/clamav.log
+	touch ${LOG_DIR}/sched.log
 	touch ${LOG_DIR}/clamavonaccess.log
 fi
 
