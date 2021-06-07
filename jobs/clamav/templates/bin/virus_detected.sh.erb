@@ -8,4 +8,4 @@ cat <<DETECTION > ${tempfile}
 clamav_virus_detected {hostname="<%= spec.name %>/<%= spec.index %>", deployment="<%= spec.deployment %>", filename="${CLAM_VIRUSEVENT_FILENAME}", virusname="${CLAM_VIRUSEVENT_VIRUSNAME}"} $(date +%s)
 DETECTION
 
-mv ${tempfile} /var/vcap/jobs/node_exporter/config/$(date +"%FT%H%M")-clamav-virus-detection.prom
+mv ${tempfile} /var/vcap/jobs/node_exporter/config/$(date +"%FT%H%M%S%S")-clamav-virus-detection.prom
