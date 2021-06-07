@@ -5,7 +5,7 @@ tempfile=$(mktemp)
 
 cat <<DETECTION > ${tempfile}
 # HELP clamav_virus_detected ClamAV virus detection timestamp
-clamav_virus_detected {hostname="`hostname`", filename="${CLAM_VIRUSEVENT_FILENAME}", virusname="${CLAM_VIRUSEVENT_VIRUSNAME}"} $(date +%s)
+clamav_virus_detected {hostname="<%= "spec.name" %>/<%= "spec.index" %>", deployment="<%= "spec.deployment" %>filename="${CLAM_VIRUSEVENT_FILENAME}", virusname="${CLAM_VIRUSEVENT_VIRUSNAME}"} $(date +%s)
 DETECTION
 
-mv ${tempfile} /var/vcap/jobs/node_exporter/config/clamav-virus-detection.prom
+mv ${tempfile} /var/vcap/jobs/node_exporter/config/$(date +"%FT%H%M")-clamav-virus-detection.prom
