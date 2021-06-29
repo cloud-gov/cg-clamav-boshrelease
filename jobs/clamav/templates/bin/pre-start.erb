@@ -1,0 +1,40 @@
+#!/bin/bash
+
+export MINUTE=$(expr $RANDOM % 60)
+export HOUR=$(shuf -i <%= p('clamav.nightly.scan.start') %>-<%= p('clamav.nightly.scan.stop') %> -n 1)
+
+<% if_p("clamav.include_directories") do |indirs| %>
+<% indirs.each do |indir| %>
+export SCANDIRS="<%= indir %> $SCANDIRS"
+<% end %>
+<% end %>
+
+echo "Pre-start started"
+
+<% if p("clamav.schedule_enabled") == true %>
+
+  echo "Processing ClamAV scheduling options"
+
+  <% if_p("clamav.cron.schedule")  do |cronsched| %>
+
+  echo "ClamAV cron schedule was set in manifest"
+
+  sed -i 's/0 0 \* \* \*/<%= cronsched %>/' /var/vcap/jobs/clamav/conf/clamdsched.d
+
+  echo "Adding Include directories of $SCEDSCANDIR"
+  sed -i "s@temp_holder@$SCANDIRS@" /var/vcap/jobs/clamav/conf/clamdsched.d
+  cp /var/vcap/jobs/clamav/conf/clamdsched.d /etc/cron.d/clamdav
+  touch /etc/crontab # touch to help ensure cron reloads
+  <% end %>
+
+<% else %>
+
+  echo "ClamAV scedhule was enabled but no cron schedule set so we default to nightly scan"
+
+  sed -i "s/0 0/$HOUR $MINUTE/" /var/vcap/jobs/clamav/conf/clamdsched.d
+  cp /var/vcap/jobs/clamav/conf/clamdsched.d /etc/cron.d/clamav
+  touch /etc/crontab # touch to help ensure cron reloads
+
+<% end %>
+
+echo "Pre-start finished"

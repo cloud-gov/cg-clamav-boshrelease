@@ -1,72 +1,55 @@
 LogFile /var/vcap/sys/log/clamav/clamav.log
-LogFileUnlock false
 LogFileMaxSize 10M
 LogTime true
-LogClean false
 LogSyslog true
-LogFacility LOG_LOCAL6
-LogVerbose false
 LogRotate true
 ExtendedDetectionInfo true
 PidFile /var/vcap/sys/run/clamav/clamd.pid
 DatabaseDirectory /var/vcap/packages/clamav/database
-OfficialDatabaseOnly false
 LocalSocket /var/vcap/sys/run/clamav/clamd.ctl
 MaxConnectionQueueLength 15
 MaxThreads 12
 ReadTimeout 180
 CommandReadTimeout 5
 SendBufTimeout 200
-MaxQueue 100
-IdleTimeout 30
-MaxDirectoryRecursion 15
-FollowDirectorySymlinks false
-CrossFilesystems yes
-FollowFileSymlinks false
 SelfCheck 3600
 VirusEvent /var/vcap/jobs/clamav/bin/virus_detected.sh
-ExitOnOOM false
-AllowAllMatchScan true
-Foreground false
-Debug false
-LeaveTemporaryFiles false
 User root
-Bytecode true
-BytecodeSecurity TrustSigned
 BytecodeTimeout 60000
-BytecodeUnsigned false
-BytecodeMode Auto
-DetectPUA false
-AlgorithmicDetection true
 ScanPE false
-ScanELF true
-DetectBrokenExecutables false
 ScanMail false
-ScanPartialMessages false
-PhishingSignatures true
-PhishingScanURLs true
-PhishingAlwaysBlockCloak false
-PhishingAlwaysBlockSSLMismatch false
-PartitionIntersection false
 HeuristicScanPrecedence true
-StructuredDataDetection false
-ScanHTML true
-ScanOLE2 true
-OLE2BlockMacros false
-ScanPDF true
-ScanSWF true
-ScanXMLDOCS true
-ScanHWP3 true
-ScanArchive true
-ArchiveBlockEncrypted false
 ForceToDisk false
-ScanOnAccess true
+ExcludePath ^/var/vcap/data/packages/
+TemporaryDirectory /var/vcap/data/tmp
+<% if p("clamav.on_access_enabled") == true %>
 OnAccessMountPath /
 OnAccessMountPath /home
 OnAccessMountPath /var/vcap/data
 OnAccessMountPath /var/vcap/store
 OnAccessDisableDDD false
 OnAccessPrevention false
-ExcludePath ^/var/vcap/data/packages/
+OnAccessIncludePath /var/vcap/data
+OnAccessExcludeUname root
+OnAccessExcludeUname clamd
+OnAccessExcludeRootUID true
 OnAccessExcludePath ^/var/vcap/data/packages/
-TemporaryDirectory /var/vcap/data/tmp
+<% end %>
+# User include access paths
+<% if_p("clamav.include_directories") do |indirs| %>
+<% indirs.each do |indir| %>
+OnAccessIncludePath <%= indir %>
+<% end %>
+<% end %>
+# User exlude access paths
+<% if_p("clamav.exclude_directories") do |exdirs| %>
+<% exdirs.each do |exdir| %>
+OnAccessExcludePath <%= exdir %>
+<% end %>
+<% end %>
+# Additional Options
+<% if_p("clamav.additional_options") do |aopt| %>
+<% aopt.each do |opt| %>
+<%= opt %>
+<% end %>
+<% end %>

@@ -8,6 +8,8 @@ if [ ! -d "${LOG_DIR}" ]; then
 	mkdir -p ${LOG_DIR}
 	touch ${LOGDIR}/freshclam.log
 	touch ${LOG_DIR}/clamav.log
+	touch ${LOG_DIR}/sched.log
+	touch ${LOG_DIR}/clamavonaccess.log
 fi
 
 if [ ! -d "${RUN_DIR}" ]; then
@@ -23,10 +25,19 @@ case "$1" in
 		sleep 20
 	  $PKG_LOC/bin/freshclam -d --config-file /var/vcap/jobs/clamav/conf/freshclam.conf
 	;;
+	'start_clamavonaccess')
+		sleep 20
+		$PKG_LOC/sbin/clamonacc -c /var/vcap/jobs/clamav/conf/clamd.conf -l ${LOG_DIR}/clamavonaccess.log
+		sleep 1
+	;;
 	'stop_clamd')
 	  kill -9 `pidof clamd`
 	;;
 	'stop_freshclam')
 	  kill -9 `pidof freshclam`
+	;;
+	'stop_clamavonaccess')
+		kill -9 `pidof clamavonaccess`
+		kill -9 `pidof clamonacc`
 	;;
 esac

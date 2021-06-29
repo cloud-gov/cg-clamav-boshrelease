@@ -3,12 +3,14 @@ name: clamav
 packages:
 - clamav
 templates:
+ bin/pre-start.erb: bin/pre-start
  bin/clamav_ctl.sh : bin/clamav_ctl.sh
  bin/database_updated.sh.erb : bin/database_updated.sh
  bin/database_error.sh.erb : bin/database_error.sh
  bin/database_outdated.sh.erb : bin/database_outdated.sh
  bin/virus_detected.sh.erb : bin/virus_detected.sh
 
+ conf/clamdsched.erb : conf/clamdsched.d
  conf/freshclam.conf.erb : conf/freshclam.conf
  conf/clamd.conf.erb : conf/clamd.conf
 
@@ -19,4 +21,33 @@ properties:
   clamav.dbMirror2:
     description: "Secondary virus definition update host"
     default: database.clamav.net
-
+  clamav.on_access_enabled:
+    description: "Enable on-access scanning with ClamAV"
+    default: false
+  clamav.schedule_enabled:
+    description: "Enable scheduled scanning with ClamAV"
+    default: false
+  clamav.cron.schedule:
+    description: "Cron format schedule when ClamAV scheduled scans should run. This will override any set nightly schedule. Use \ to escape * or /"
+    example: |
+      schedule: \*\/5 \* \* \* \*
+  clamav.nightly.scan.start:
+    description: "Start hour to schedule nightly ClamAV scan - based on timezone in VM"
+    default: 0
+  clamav.nightly.scan.stop:
+    description: "Stop hour to schedule nightly ClamAV scan - based on timezone in VM"
+    default: 5
+  clamav.include_directories:
+    description: "Directories in an array that you want ClamAV to scan - yml array"
+    example: |
+      - /var/vcap/jobs
+      - /var/vcap/packages
+  clamav.exclude_directories:
+    description: "Directories in an array that you want ClamAV to not scan - yml array"
+    example: |
+      - /var/vcap/jobs
+      - /var/vcap/packages
+  clamav.additional_options:
+    description: "Additional ClamAV options to be added to clamd.conf - yml array"
+    example: |
+      - OnAccessExcludePath /var/vcap/packages/clamd
