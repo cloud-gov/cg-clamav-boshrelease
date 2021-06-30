@@ -30,7 +30,7 @@ properties:
   clamav.cron.schedule:
     description: "Cron format schedule when ClamAV scheduled scans should run. This will override any set nightly schedule. Use \ to escape * or /"
     example: |
-      schedule: \*\/5 \* \* \* \*
+      schedule: '\*\/5 \* \* \* \*'
   clamav.nightly.scan.start:
     description: "Start hour to schedule nightly ClamAV scan - based on timezone in VM"
     default: 0

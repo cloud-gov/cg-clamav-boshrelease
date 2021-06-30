@@ -19,19 +19,21 @@ echo "Pre-start started"
 
   echo "ClamAV cron schedule was set in manifest"
 
-  sed -i 's/0 0 \* \* \*/<%= cronsched %>/' /var/vcap/jobs/clamav/conf/clamdsched.d
+  sed -i 's/temp_time/<%= cronsched %>/' /var/vcap/jobs/clamav/conf/clamdsched.d
 
   echo "Adding Include directories of $SCEDSCANDIR"
-  sed -i "s@temp_holder@$SCANDIRS@" /var/vcap/jobs/clamav/conf/clamdsched.d
-  cp /var/vcap/jobs/clamav/conf/clamdsched.d /etc/cron.d/clamdav
+  sed -i "s@-m temp_holder@$SCANDIRS@" /var/vcap/jobs/clamav/conf/clamdsched.d
+  cp /var/vcap/jobs/clamav/conf/clamdsched.d /etc/cron.d/clamav
   touch /etc/crontab # touch to help ensure cron reloads
+  echo "Pre-start finished"
+  exit
   <% end %>
-
-<% else %>
 
   echo "ClamAV scedhule was enabled but no cron schedule set so we default to nightly scan"
 
-  sed -i "s/0 0/$HOUR $MINUTE/" /var/vcap/jobs/clamav/conf/clamdsched.d
+  sed -i "s/temp_time/$MINUTE $HOUR * * */" /var/vcap/jobs/clamav/conf/clamdsched.d
+  echo "Adding Include directories of $SCEDSCANDIR"
+  sed -i "s@-m temp_holder@$SCANDIRS@" /var/vcap/jobs/clamav/conf/clamdsched.d
   cp /var/vcap/jobs/clamav/conf/clamdsched.d /etc/cron.d/clamav
   touch /etc/crontab # touch to help ensure cron reloads
 
