@@ -11,7 +11,7 @@ check process freshclam
   depends on clamd
   group vcap
 
-check file clamav_defs_are_current with path /var/vcap/packages/clamav/database/defs_are_current
+check file clamav_defs_are_current with path /var/vcap/data/clamav/database/defs_are_current
   if not exist then alert
   depends on freshclam
   group vcap
