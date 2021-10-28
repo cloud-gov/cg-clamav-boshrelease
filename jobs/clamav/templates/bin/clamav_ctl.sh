@@ -3,6 +3,7 @@ export PKG_LOC=/var/vcap/packages/clamav
 
 LOG_DIR=/var/vcap/sys/log/clamav
 RUN_DIR=/var/vcap/sys/run/clamav
+DATADB_DIR=/var/vcap/data/clamav/database
 
 if [ ! -d "${LOG_DIR}" ]; then
 	mkdir -p ${LOG_DIR}
@@ -16,6 +17,9 @@ if [ ! -d "${RUN_DIR}" ]; then
 	mkdir -p ${RUN_DIR}
 fi
 
+if [ ! -d "${DATADB_DIR}" ]; then
+	mkdir -p ${DATADB_DIR}
+fi
 case "$1" in
 	'start_clamd')
 	  $PKG_LOC/sbin/clamd -c /var/vcap/jobs/clamav/conf/clamd.conf
