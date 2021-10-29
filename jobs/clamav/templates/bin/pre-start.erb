@@ -15,7 +15,7 @@ if [ -z "$(ls -A -- "${DATADB_DIR}")" ]; then
   echo "Building out freshclam DB for the 1st time"
   $CLAMAV_HOME/bin/freshclam -u root --config-file /var/vcap/jobs/clamav/conf/freshclam.conf
   # set the monit flag
-  touch $CLAMAV_DATA/database/defs_are_current
+  touch $DATADB_DIR/defs_are_current
 fi
 
 <% if_p("clamav.include_directories") do |indirs| %>
