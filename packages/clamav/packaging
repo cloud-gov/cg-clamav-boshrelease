@@ -1,11 +1,13 @@
 set -e # exit immediately if a simple command exits with a non-zero status
 set -u # report the usage of uninitialized variables
 mkdir -p /var/vcap/packages/clamav
+mkdir -p /var/vcap/data/clamav
 # Available variables
 # $BOSH_COMPILE_TARGET - where this package & spec'd source files are available
 # $BOSH_INSTALL_TARGET - where you copy/install files to be included in package
 export HOME=/var/vcap
 export CLAMAV_HOME=/var/vcap/packages/clamav
+export CLAMAV_DATA=/var/vcap/data/clamav
 export COMPILE_HOME=`pwd`
 
 tar xvzf clamav/clamav*.tar.gz
@@ -15,13 +17,13 @@ make
 make install
 
 # do an initial sync of the virus definition at compile time
-mkdir -p $CLAMAV_HOME/database
+mkdir -p $CLAMAV_DATA/database
 
 TMPCONF=$(mktemp)
 
 # minimum configuration required to do a db sync
 cat << EOF > $TMPCONF
-DatabaseDirectory $CLAMAV_HOME/database
+DatabaseDirectory $CLAMAV_DATA/database
 DatabaseMirror db.us.clamav.net
 DatabaseMirror database.clamav.net
 EOF
@@ -30,7 +32,7 @@ EOF
 $CLAMAV_HOME/bin/freshclam -u root --config-file $TMPCONF
 
 # set the monit flag
-touch $CLAMAV_HOME/database/defs_are_current
+touch $CLAMAV_DATA/database/defs_are_current
 
 rm $TMPCONF
 

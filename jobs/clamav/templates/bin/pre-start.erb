@@ -2,6 +2,21 @@
 
 export MINUTE=$(expr $RANDOM % 60)
 export HOUR=$(shuf -i <%= p('clamav.nightly.scan.start') %>-<%= p('clamav.nightly.scan.stop') %> -n 1)
+export CLAMAV_HOME=/var/vcap/packages/clamav
+export DATADB_DIR=/var/vcap/data/clamav/database
+
+# make database DIR if missing
+if [ ! -d "${DATADB_DIR}" ]; then
+	mkdir -p ${DATADB_DIR}
+fi
+
+# check if there is an existing DB in data
+if [ -z "$(ls -A -- "${DATADB_DIR}")" ]; then
+  echo "Building out freshclam DB for the 1st time"
+  $CLAMAV_HOME/bin/freshclam -u root --config-file /var/vcap/jobs/clamav/conf/freshclam.conf
+  # set the monit flag
+  touch $DATADB_DIR/defs_are_current
+fi
 
 <% if_p("clamav.include_directories") do |indirs| %>
 <% indirs.each do |indir| %>
