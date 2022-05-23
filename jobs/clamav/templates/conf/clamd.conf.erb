@@ -54,11 +54,3 @@ OnAccessExcludePath <%= exdir %>
 <%= opt %>
 <% end %>
 <% end %>
-
-
-
-<% if_link("snort-config") do |config| %>
-    <% config.p("snort.rules", []).each do |rule| %>
-  <%= rule %>
-    <% end %>
-  <% end %>
