@@ -47,7 +47,7 @@ properties:
     example: |
       - /var/vcap/jobs
       - /var/vcap/packages
-  clamav.additional_options:
-    description: "Additional ClamAV options to be added to clamd.conf - yml array"
-    example: |
-      - OnAccessExcludePath /var/vcap/packages/clamd
+#  clamav.additional_options:
+#    description: "Additional ClamAV options to be added to clamd.conf - yml array"
+#    example: |
+#      - OnAccessExcludePath /var/vcap/packages/clamd

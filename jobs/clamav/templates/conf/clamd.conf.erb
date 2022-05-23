@@ -48,8 +48,17 @@ OnAccessExcludePath <%= exdir %>
 <% end %>
 <% end %>
 # Additional Options
-<% if_p("clamav.additional_options") do |aopt| %>
+<% if_link("clamav-config") do |config| %>
+<% if_p("clamav-config.additional_options") do |aopt| %>
 <% aopt.each do |opt| %>
 <%= opt %>
 <% end %>
 <% end %>
+
+
+
+<% if_link("snort-config") do |config| %>
+    <% config.p("snort.rules", []).each do |rule| %>
+  <%= rule %>
+    <% end %>
+  <% end %>
