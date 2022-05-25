@@ -11,10 +11,10 @@ check process freshclam
   depends on clamd
   group vcap
 
-check file clamav_defs_are_current with path /var/vcap/data/clamav/database/defs_are_current
-  if not exist then alert
-  depends on freshclam
-  group vcap
+#check file clamav_defs_are_current with path /var/vcap/data/clamav/database/defs_are_current
+#  if not exist then alert
+#  depends on freshclam
+#  group vcap
 
 <% if p("clamav.on_access_enabled") == true %>
 check process clamavonaccess
