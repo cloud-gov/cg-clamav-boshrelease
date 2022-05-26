@@ -1,7 +1,7 @@
 #!/bin/bash
 
 export MINUTE=$(expr $RANDOM % 60)
-export HOUR=$(shuf -i <%= p('clamad-config.nightly.scan.start') %>-<%= p('clamd-config.nightly.scan.stop') %> -n 1)
+export HOUR=$(shuf -i <%= p('clamd-config.nightly.scan.start') %>-<%= p('clamd-config.nightly.scan.stop') %> -n 1)
 export CLAMAV_HOME=/var/vcap/packages/clamav
 export DATADB_DIR=/var/vcap/data/clamav/database
 
@@ -18,7 +18,7 @@ if [ -z "$(ls -A -- "${DATADB_DIR}")" ]; then
   touch $DATADB_DIR/defs_are_current
 fi
 
-<% if_p("clamad-config.include_directories") do |indirs| %>
+<% if_p("clamd-config.include_directories") do |indirs| %>
 <% indirs.each do |indir| %>
 export SCANDIRS="<%= indir %> $SCANDIRS"
 <% end %>
@@ -31,7 +31,7 @@ echo "Pre-start started"
 
   echo "Processing ClamAV scheduling options"
 
-  <% if_p("clamad-config.cron.schedule")  do |cronsched| %>
+  <% if_p("clamd-config.cron.schedule")  do |cronsched| %>
 
   echo "ClamAV cron schedule was set in manifest"
 
