@@ -36,22 +36,18 @@ OnAccessExcludeRootUID true
 OnAccessExcludePath ^/var/vcap/data/packages/
 <% end %>
 # User include access paths
-<% if_link('clamav-config') do |clam_link_include| -%>
-<% clam_link_include.if_p("clamd-config.include_directories") do |indirs| %>
+<% if_link('clamav-config') do |clam_link| %>
+<% clam_link.if_p("clamd-config.include_directories") do |indirs| %>
 <% indirs.each do |indir| %>
 OnAccessIncludePath <%= indir %>
 <% end %>
-<% end -%>
 # User exlude access paths
-<% if_link('clamav-config') do |clam_link_exclude| -%>
-<% clam_link_exclude.if_p("clamd-config.exclude_directories") do |exdirs| %>
+<% clam_link.if_p("clamd-config.exclude_directories") do |exdirs| %>
 <% exdirs.each do |exdir| %>
 OnAccessExcludePath <%= exdir %>
 <% end %>
-<% end -%>
 # Additional Options
-<% if_link('clamav-config') do |clam_link_ops| -%>
-<% clam_link_ops.if_p("clamd-config.additional_options") do |opt| %>
+<% clam_link.if_p("clamd-config.additional_options") do |opt| %>
 <%= opt %>
 <% end %>
-<% end -%>
+<% end %>
