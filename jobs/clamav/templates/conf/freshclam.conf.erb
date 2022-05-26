@@ -26,5 +26,11 @@ OnErrorExecute /var/vcap/jobs/clamav/bin/database_error.sh
 OnOutdatedExecute /var/vcap/jobs/clamav/bin/database_outdated.sh
 ConnectTimeout 10
 ReceiveTimeout 30
-SafeBrowsing false
+#SafeBrowsing false
 Bytecode true
+# Additional Options
+<% if_link('clamav-config') do |clam_link| %>
+<% clam_link.if_p("freshclam-config.additional_options") do |opt| %>
+<%= opt %>
+<% end %>
+<% end %>
