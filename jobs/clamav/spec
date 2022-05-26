@@ -1,5 +1,8 @@
 ---
 name: clamav
+consumes:
+- name: clamav-config
+  type: config
 packages:
 - clamav
 templates:
