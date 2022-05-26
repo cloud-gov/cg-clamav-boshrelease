@@ -3,7 +3,7 @@
 <%= config = link("clamav-config") %>
 
 export MINUTE=$(expr $RANDOM % 60)
-export HOUR=$(shuf -i <%= config.p('clamd-config.nightly.scan.start') %>-<%= config.p('clamd-config.nightly.scan.stop') %> -n 1)
+export HOUR=$(shuf -i <%= config.p("clamd-config.nightly.scan.start") %>-<%= config.p("clamd-config.nightly.scan.stop") %> -n 1)
 export CLAMAV_HOME=/var/vcap/packages/clamav
 export DATADB_DIR=/var/vcap/data/clamav/database
 
