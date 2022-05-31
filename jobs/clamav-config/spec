@@ -4,7 +4,14 @@ name: clamav-config
 provides:
   - name: clamav-config
     type: clamav-config
-#    properties: [clamav-config.additional_options, freshclam-config.additional_options]
+    properties:
+    - clamav-config.additional_options
+    - freshclam-config.additional_options
+    - clamav-config.include_directories
+    - clamav-config.exclude_directories
+    - clamav-config.cron.schedule
+    - clamav-config.nightly.scan.start
+    - clamav-config.nightly.scan.stop
 
 properties:
   clamav-config.additional_options:
@@ -12,7 +19,7 @@ properties:
     example: |
       - OnAccessExcludePath /var/vcap/packages/clamav
   freshclam-config.additional_options:
-    description: "Additional freshclam options to be added to clamav.conf - yml array"
+    description: "Additional freshclam options to be added to freshclam.conf - yml array"
     example: |
       - PrivateMirror http://mirror.mylan:8000
   clamav-config.include_directories:

@@ -29,6 +29,11 @@ ReceiveTimeout 30
 #SafeBrowsing false
 Bytecode true
 # Additional Options
+<% if_p("clamav.freshclam.additional_options") do |afopt| %>
+<% afopt.each do |fopt| %>
+<%= fopt %>
+<% end %>
+<% end %>
 <% if_link('clamav-config') do |clamavconfig| %>
   <% clamavconfig.if_p("freshclam-config.additional_options") do |addopt| %>
 <% addopt.each do |opt| %>
