@@ -4,7 +4,7 @@ name: clamav-config
 provides:
   - name: clamav-config
     type: clamav-config
-    properties: [clamav-config.additional_options, freshclam-config.additional_options]
+#    properties: [clamav-config.additional_options, freshclam-config.additional_options]
 
 properties:
   clamav-config.additional_options:
