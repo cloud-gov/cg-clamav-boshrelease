@@ -12,6 +12,7 @@ provides:
     - clamav-config.cron.schedule
     - clamav-config.nightly.scan.start
     - clamav-config.nightly.scan.stop
+    - clamav-config.on_access_enabled
 
 properties:
   clamav-config.additional_options:
@@ -42,3 +43,6 @@ properties:
   clamav-config.nightly.scan.stop:
     description: "Stop hour to schedule nightly ClamAV scan - based on timezone in VM"
     default: 5
+  clamav-config.on_access_enabled:
+    description: "Enable on-access scanning with ClamAV"
+    default: false

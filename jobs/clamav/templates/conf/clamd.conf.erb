@@ -32,7 +32,20 @@ OnAccessIncludePath /var/vcap/data
 OnAccessExcludeUname root
 OnAccessExcludeUname clamd
 OnAccessExcludeRootUID true
-OnAccessExcludePath ^/var/vcap/data/packages/
+<% end %>
+<% if_link('clamav-config') do |clamavconfig| %>
+  <% if clamavconfig.p("clamav-config.on_access_enabled") == true %>
+OnAccessMountPath /
+OnAccessMountPath /home
+OnAccessMountPath /var/vcap/data
+OnAccessMountPath /var/vcap/store
+OnAccessDisableDDD false
+OnAccessPrevention false
+OnAccessIncludePath /var/vcap/data
+OnAccessExcludeUname root
+OnAccessExcludeUname clamd
+OnAccessExcludeRootUID true
+  <% end %>
 <% end %>
 # User include access paths
 <% if_p("clamav.include_directories") do |indirs| %>
