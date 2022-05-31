@@ -49,9 +49,9 @@ OnAccessExcludePath <%= exdir %>
 <% end %>
 # Additional Options
 <%
-if_link('clamd-config') do |clamd-config|
-  clamd-config.if_p("clamd-config.additional_options") do |add-opt|
-    add-opt.each do |opt|
+if_link('clamd-config') do |clamdconfig|
+  clamdconfig.if_p("clamd-config.additional_options") do |addopt|
+    addopt.each do |opt|
     <%= opt %>
     <% end %>
 %>
