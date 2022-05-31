@@ -50,7 +50,7 @@ OnAccessExcludePath <%= exdir %>
 # Additional Options
 <% if_link('clamav-config') do |clamavconfig| %>
   <% clamavconfig.if_p("clamav-config.additional_options") do |addopt| %>
-addopt.each do |opt|
+<% addopt.each do |opt| %>
 <%= opt %>
   <% end %>
 <% end %>
