@@ -54,8 +54,8 @@ OnAccessExcludePath <%= exdir %>
 <% end %>
 <% end %>
 <% if_link('clamav-config') do |clamavconfig| %>
-  <% clamavconfig.if_p("clamav-config.exclude_directories") do |cexdirs| %>
-<% cexndirs.each do |cexdir| %>
+    <% clamavconfig.if_p("clamav-config.exclude_directories") do |cexdirs| %>
+<% cexdirs.each do |cexdir| %>
 OnAccessIncludePath <%= cexdir %>
   <% end %>
   <% end %>
