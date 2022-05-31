@@ -48,8 +48,8 @@ OnAccessExcludePath <%= exdir %>
 <% end %>
 <% end %>
 # Additional Options
-<% if_link('clamd-config') do |clamdconfig| %>
-  <% clamdconfig.if_p("clamd-config.additional_options") do |addopt| %>
+<% if_link('clamav-config') do |clamavconfig| %>
+  <% clamavconfig.if_p("clamav-config.additional_options") do |addopt| %>
     addopt.each do |opt|
     <%= opt %>
     <% end %>
