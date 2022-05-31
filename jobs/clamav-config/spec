@@ -1,11 +1,11 @@
 ---
 name: clamav-config
+
 provides:
-- name: clamav-config
-  type: config
-  properties:
-  - clamd-config.additional_options
-  - freshclam-config.additional_options
+  - name: clamav-config
+    type: clamav-config
+    properties: [clamd-config.additional_options, freshclam-config.additional_options]
+
 properties:
   clamd-config.additional_options:
     description: "Additional ClamAV options to be added to clamd.conf - yml array"
