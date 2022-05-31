@@ -4,7 +4,7 @@ consumes:
   - name: clamav-config
     type: clamav-config
     optional: true
-    
+
 packages:
 - clamav
 templates:
@@ -32,26 +32,26 @@ properties:
   clamav.schedule_enabled:
     description: "Enable scheduled scanning with ClamAV"
     default: false
-#  clamav.cron.schedule:
-#    description: "Cron format schedule when ClamAV scheduled scans should run. This will override any set nightly schedule. Use \ to escape * or /"
-#    example: |
-#      schedule: '\*\/5 \* \* \* \*'
-#  clamav.nightly.scan.start:
-#    description: "Start hour to schedule nightly ClamAV scan - based on timezone in VM"
-#    default: 0
-#  clamav.nightly.scan.stop:
-#    description: "Stop hour to schedule nightly ClamAV scan - based on timezone in VM"
-#    default: 5
-#  clamav.include_directories:
-#    description: "Directories in an array that you want ClamAV to scan - yml array"
-#    example: |
-#      - /var/vcap/jobs
-#      - /var/vcap/packages
-#  clamav.exclude_directories:
-#    description: "Directories in an array that you want ClamAV to not scan - yml array"
-#    example: |
-#      - /var/vcap/jobs
-#      - /var/vcap/packages
+  clamav.cron.schedule:
+    description: "Cron format schedule when ClamAV scheduled scans should run. This will override any set nightly schedule. Use \ to escape * or /"
+    example: |
+      schedule: '\*\/5 \* \* \* \*'
+  clamav.nightly.scan.start:
+    description: "Start hour to schedule nightly ClamAV scan - based on timezone in VM"
+    default: 0
+  clamav.nightly.scan.stop:
+    description: "Stop hour to schedule nightly ClamAV scan - based on timezone in VM"
+    default: 5
+  clamav.include_directories:
+    description: "Directories in an array that you want ClamAV to scan - yml array"
+    example: |
+      - /var/vcap/jobs
+      - /var/vcap/packages
+  clamav.exclude_directories:
+    description: "Directories in an array that you want ClamAV to not scan - yml array"
+    example: |
+      - /var/vcap/jobs
+      - /var/vcap/packages
 #  clamav.additional_options:
 #    description: "Additional ClamAV options to be added to clamd.conf - yml array"
 #    example: |
