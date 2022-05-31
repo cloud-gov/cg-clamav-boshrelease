@@ -20,7 +20,6 @@ ScanPE false
 ScanMail false
 HeuristicScanPrecedence true
 ForceToDisk false
-# ExcludePath ^/var/vcap/data/packages/
 TemporaryDirectory /var/vcap/data/tmp
 <% if p("clamav.on_access_enabled") == true %>
 OnAccessMountPath /
@@ -41,11 +40,25 @@ OnAccessExcludePath ^/var/vcap/data/packages/
 OnAccessIncludePath <%= indir %>
 <% end %>
 <% end %>
+<% if_link('clamav-config') do |clamavconfig| %>
+    <% clamavconfig.if_p("clamav-config.include_directories") do |cindirs| %>
+<% cindirs.each do |cindir| %>
+OnAccessIncludePath <%= cindir %>
+  <% end %>
+  <% end %>
+<% end %>
 # User exlude access paths
 <% if_p("clamav.exclude_directories") do |exdirs| %>
 <% exdirs.each do |exdir| %>
 OnAccessExcludePath <%= exdir %>
 <% end %>
+<% end %>
+<% if_link('clamav-config') do |clamavconfig| %>
+  <% clamavconfig.if_p("clamav-config.exclude_directories") do |cexdirs| %>
+<% cexndirs.each do |cexdir| %>
+OnAccessIncludePath <%= cexdir %>
+  <% end %>
+  <% end %>
 <% end %>
 # Additional Options
 <% if_p("clamav.additional_options") do |aopt| %>
