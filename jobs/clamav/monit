@@ -25,7 +25,7 @@ check process clamavonaccess
   group vcap
 <% end %>
 
-<% if p("clamav.on_access_enabled") == false %>
+<% if p("clamav.on_access_enabled") != true %>
  <% if_link('clamav-config') do |clamavconfig| %>
  <% if clamavconfig.p("clamav-config.on_access_enabled") == true %>
  check process clamavonaccess
