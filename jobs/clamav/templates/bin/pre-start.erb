@@ -1,7 +1,11 @@
 #!/bin/bash
 
 export MINUTE=$(expr $RANDOM % 60)
+<% if_link('clamav-config') do |clamavconfig| %>
+export HOUR=$(shuf -i <%= p('clamav-config.nightly.scan.start') %>-<%= p('clamav-config.nightly.scan.stop') %> -n 1)
+else
 export HOUR=$(shuf -i <%= p('clamav.nightly.scan.start') %>-<%= p('clamav.nightly.scan.stop') %> -n 1)
+<% end %>
 export CLAMAV_HOME=/var/vcap/packages/clamav
 export DATADB_DIR=/var/vcap/data/clamav/database
 
