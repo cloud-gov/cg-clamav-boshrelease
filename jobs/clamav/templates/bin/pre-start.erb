@@ -2,7 +2,7 @@
 
 export MINUTE=$(expr $RANDOM % 60)
 <% if_link('clamav-config') do |clamavconfig| %>
-export HOUR=$(shuf -i <%= p('clamav-config.nightly.scan.start') %>-<%= p('clamav-config.nightly.scan.stop') %> -n 1)
+export HOUR=$(shuf -i <%= clamavconfig.p('clamav-config.nightly.scan.start') %>-<%= clamavconfig.p('clamav-config.nightly.scan.stop') %> -n 1)
 else
 export HOUR=$(shuf -i <%= p('clamav.nightly.scan.start') %>-<%= p('clamav.nightly.scan.stop') %> -n 1)
 <% end %>
