@@ -9,11 +9,7 @@ provides:
     - freshclam-config.additional_options
     - clamav-config.include_directories
     - clamav-config.exclude_directories
-    - clamav-config.cron.schedule
-    - clamav-config.nightly.scan.start
-    - clamav-config.nightly.scan.stop
     - clamav-config.on_access_enabled
-    - clamav-config.schedule_enabled
 
 properties:
   clamav-config.additional_options:
@@ -34,19 +30,6 @@ properties:
     example: |
       - /var/vcap/jobs
       - /var/vcap/packages
-  clamav-config.cron.schedule:
-    description: "Cron format schedule when ClamAV scheduled scans should run. This will override any set nightly schedule. Use \ to escape * or /"
-    example: |
-      schedule: '\*\/5 \* \* \* \*'
-  clamav-config.nightly.scan.start:
-    description: "Start hour to schedule nightly ClamAV scan - based on timezone in VM"
-    default: 8
-  clamav-config.nightly.scan.stop:
-    description: "Stop hour to schedule nightly ClamAV scan - based on timezone in VM"
-    default: 12
   clamav-config.on_access_enabled:
     description: "Enable on-access scanning with ClamAV"
-    default: false
-  clamav-config.schedule_enabled:
-    description: "Enable scheduled scanning with ClamAV"
     default: false

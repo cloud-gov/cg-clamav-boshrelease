@@ -24,3 +24,14 @@ check process clamavonaccess
   depends on clamd
   group vcap
 <% end %>
+
+<% if_link('clamav-config') do |clamavconfig| %>
+<% if clamavconfig.p("clamav-config.on_access_enabled") == true %>
+check process clamavonaccess
+  matching "clamonacc"
+  start program "/var/vcap/jobs/clamav/bin/clamav_ctl.sh start_clamavonaccess" with timeout 500 seconds
+  stop program "/var/vcap/jobs/clamav/bin/clamav_ctl.sh stop_clamavonaccess"
+  depends on clamd
+  group vcap
+<% end %>
+<% end %>
