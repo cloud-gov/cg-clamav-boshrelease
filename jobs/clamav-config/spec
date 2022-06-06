@@ -13,6 +13,7 @@ provides:
     - clamav-config.nightly.scan.start
     - clamav-config.nightly.scan.stop
     - clamav-config.on_access_enabled
+    - clamav-config.schedule_enabled
 
 properties:
   clamav-config.additional_options:
@@ -45,4 +46,7 @@ properties:
     default: 12
   clamav-config.on_access_enabled:
     description: "Enable on-access scanning with ClamAV"
+    default: false
+  clamav-config.schedule_enabled:
+    description: "Enable scheduled scanning with ClamAV"
     default: false
