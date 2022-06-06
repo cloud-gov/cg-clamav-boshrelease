@@ -1,11 +1,14 @@
 #!/bin/bash
 
 export MINUTE=$(expr $RANDOM % 60)
-<% if_link('clamav-config') do |clamavconfig| %>
-export HOUR=$(shuf -i <%= clamavconfig.p('clamav-config.nightly.scan.start') %>-<%= clamavconfig.p('clamav-config.nightly.scan.stop') %> -n 1)
-else
+<%
+HOUR=nil
+if_link("clamav-config") { |clamavconfig_link| export HOUR=$(shuf -i clamavconfig_link.p("clamav-config.nightly.scan.start"-clamavconfig_link.p("clamav-config.nightly.scan.stop" -n 1) }
+unless HOUR
 export HOUR=$(shuf -i <%= p('clamav.nightly.scan.start') %>-<%= p('clamav.nightly.scan.stop') %> -n 1)
-<% end %>
+end
+%>
+
 export CLAMAV_HOME=/var/vcap/packages/clamav
 export DATADB_DIR=/var/vcap/data/clamav/database
 
