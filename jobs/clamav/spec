@@ -51,3 +51,6 @@ properties:
     description: "Additional ClamAV options to be added to clamd.conf - yml array"
     example: |
       - OnAccessExcludePath /var/vcap/packages/clamd
+  clamav.alert_on_stale_defs:
+    description: "Use monit to alert about database update failures"
+    default: true
