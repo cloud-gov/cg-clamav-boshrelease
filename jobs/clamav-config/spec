@@ -7,9 +7,14 @@ provides:
     properties:
     - clamav-config.additional_options
     - freshclam-config.additional_options
+    - clamav-config.base_directories
     - clamav-config.include_directories
     - clamav-config.exclude_directories
     - clamav-config.on_access_enabled
+    - clamav-config.nightly.scan.start
+    - clamav-config.nightly.scan.stop
+    - clamav-config.schedule_enabled
+    - clamav-config.cron.schedule
 
 properties:
   clamav-config.additional_options:
@@ -20,6 +25,13 @@ properties:
     description: "Additional freshclam options to be added to freshclam.conf - yml array"
     example: |
       - PrivateMirror http://mirror.mylan:8000
+  clamav-config.base_directories:
+    description: "Directories in an array that you want ClamAV to scan - yml array"
+    default: |
+      - /var/vcap/jobs
+      - /var/vcap/packages
+      - /var/vcap/data
+      - /var/vcap/store
   clamav-config.include_directories:
     description: "Directories in an array that you want ClamAV to scan - yml array"
     example: |
@@ -33,3 +45,16 @@ properties:
   clamav-config.on_access_enabled:
     description: "Enable on-access scanning with ClamAV"
     default: false
+  clamav-config.nightly.scan.start:
+    description: "Start hour to schedule nightly ClamAV scan - based on timezone in VM"
+    default: 12
+  clamav-config.nightly.scan.stop:
+    description: "Stop hour to schedule nightly ClamAV scan - based on timezone in VM"
+    default: 18
+  clamav-config.schedule_enabled:
+    description: "Enable scheduled scanning with ClamAV"
+    default: false
+  clamav-config.cron.schedule:
+    description: "Cron format schedule when ClamAV scheduled scans should run. This will override any set nightly schedule. Use \ to escape * or /"
+    example: |
+      schedule: '\*\/5 \* \* \* \*'

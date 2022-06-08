@@ -42,6 +42,13 @@ properties:
   clamav.nightly.scan.stop:
     description: "Stop hour to schedule nightly ClamAV scan - based on timezone in VM"
     default: 5
+  clamav.base_directories:
+    description: "Directories in an array that you want ClamAV to scan - yml array"
+    default: |
+      - /var/vcap/jobs
+      - /var/vcap/packages
+      - /var/vcap/data
+      - /var/vcap/store
   clamav.include_directories:
     description: "Directories in an array that you want ClamAV to scan - yml array"
     example: |
