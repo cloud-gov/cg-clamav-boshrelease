@@ -27,7 +27,7 @@ export FULLSCANDIRS="-m $SCANDIRS"
 
 echo "Pre-start started"
 
-<% if p("clamav.schedule_enabled") == true %>
+<% if p("clamav.schedule_enabled").to_s == "true" %>
 
   echo "Processing ClamAV scheduling options"
 
