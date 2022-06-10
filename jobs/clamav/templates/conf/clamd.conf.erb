@@ -22,7 +22,7 @@ HeuristicScanPrecedence true
 ForceToDisk false
 ExcludePath ^/var/vcap/data/packages/
 TemporaryDirectory /var/vcap/data/tmp
-<% if p("clamav.on_access_enabled") == true %>
+<% if p("clamav.on_access_enabled").to_s == "true" %>
 OnAccessMountPath /
 OnAccessMountPath /home
 OnAccessMountPath /var/vcap/data
