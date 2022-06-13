@@ -30,7 +30,7 @@ check process clamavonaccess
 <% if p("clamav.on_access_enabled").to_s != "true" %>
  <% if_link('clamav-config') do |clamavconfig| %>
  <% if clamavconfig.p("clamav-config.on_access_enabled").to_s == "true" %>
- check process clamavonaccess
+ check process clamavonaccess_c
    matching "clamonacc"
    start program "/var/vcap/jobs/clamav/bin/clamav_ctl.sh start_clamavonaccess" with timeout 500 seconds
    stop program "/var/vcap/jobs/clamav/bin/clamav_ctl.sh stop_clamavonaccess"
