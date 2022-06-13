@@ -21,7 +21,7 @@ ScanMail false
 HeuristicScanPrecedence true
 ForceToDisk false
 TemporaryDirectory /var/vcap/data/tmp
-<% if p("clamav.on_access_enabled") == true %>
+<% if p("clamav.on_access_enabled").to_s == "true" %>
 OnAccessMountPath /
 OnAccessMountPath /home
 OnAccessMountPath /var/vcap/data
@@ -34,7 +34,7 @@ OnAccessExcludeUname clamd
 OnAccessExcludeRootUID true
 <% end %>
 <% if_link('clamav-config') do |clamavconfig| %>
-  <% if clamavconfig.p("clamav-config.on_access_enabled") == true %>
+  <% if clamavconfig.p("clamav-config.on_access_enabled").to_s == "true" %>
 OnAccessMountPath /
 OnAccessMountPath /home
 OnAccessMountPath /var/vcap/data

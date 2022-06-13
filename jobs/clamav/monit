@@ -11,12 +11,14 @@ check process freshclam
   depends on clamd
   group vcap
 
-#check file clamav_defs_are_current with path /var/vcap/data/clamav/database/defs_are_current
-#  if not exist then alert
-#  depends on freshclam
-#  group vcap
+<% if p("clamav.alert_on_stale_defs").to_s == "true" %>
+check file clamav_defs_are_current with path /var/vcap/data/clamav/database/defs_are_current
+  if not exist then alert
+  depends on freshclam
+  group vcap
+<% end %>
 
-<% if p("clamav.on_access_enabled") == true %>
+<% if p("clamav.on_access_enabled").to_s == "true" %>
 check process clamavonaccess
   matching "clamonacc"
   start program "/var/vcap/jobs/clamav/bin/clamav_ctl.sh start_clamavonaccess" with timeout 500 seconds
@@ -25,9 +27,9 @@ check process clamavonaccess
   group vcap
 <% end %>
 
-<% if p("clamav.on_access_enabled") != true %>
+<% if p("clamav.on_access_enabled").to_s != "true" %>
  <% if_link('clamav-config') do |clamavconfig| %>
- <% if clamavconfig.p("clamav-config.on_access_enabled") == true %>
+ <% if clamavconfig.p("clamav-config.on_access_enabled").to_s == "true" %>
  check process clamavonaccess
    matching "clamonacc"
    start program "/var/vcap/jobs/clamav/bin/clamav_ctl.sh start_clamavonaccess" with timeout 500 seconds
