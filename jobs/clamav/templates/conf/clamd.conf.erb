@@ -22,6 +22,7 @@ HeuristicScanPrecedence true
 ForceToDisk false
 TemporaryDirectory /var/vcap/data/tmp
 <% if p("clamav.on_access_enabled").to_s == "true" %>
+# clamav job onaccess block
 OnAccessMountPath /
 OnAccessMountPath /home
 OnAccessMountPath /var/vcap/data
@@ -29,12 +30,16 @@ OnAccessMountPath /var/vcap/store
 OnAccessDisableDDD false
 OnAccessPrevention false
 OnAccessIncludePath /var/vcap/data
+OnAccessIncludePath /var/vcap/store
+OnAccessIncludePath /var/vcap/packages
+OnAccessIncludePath /var/vcap/jobs
 OnAccessExcludeUname root
 OnAccessExcludeUname clamd
 OnAccessExcludeRootUID true
 <% end %>
-<% if_link('clamav-config') do |clamavconfig| %>
-  <% if clamavconfig.p("clamav-config.on_access_enabled").to_s == "true" %>
+<% if clamavconfig.p("clamav.on_access_enabled").to_s != "true" %>
+   <% if_link('clamav-config') do |clamavconfig| %>
+# clamav-config job onaccess block
 OnAccessMountPath /
 OnAccessMountPath /home
 OnAccessMountPath /var/vcap/data
@@ -42,6 +47,9 @@ OnAccessMountPath /var/vcap/store
 OnAccessDisableDDD false
 OnAccessPrevention false
 OnAccessIncludePath /var/vcap/data
+OnAccessIncludePath /var/vcap/store
+OnAccessIncludePath /var/vcap/packages
+OnAccessIncludePath /var/vcap/jobs
 OnAccessExcludeUname root
 OnAccessExcludeUname clamd
 OnAccessExcludeRootUID true
@@ -69,7 +77,7 @@ OnAccessExcludePath <%= exdir %>
 <% if_link('clamav-config') do |clamavconfig| %>
     <% clamavconfig.if_p("clamav-config.exclude_directories") do |cexdirs| %>
 <% cexdirs.each do |cexdir| %>
-OnAccessIncludePath <%= cexdir %>
+OnAccessExcludePath <%= cexdir %>
   <% end %>
   <% end %>
 <% end %>
