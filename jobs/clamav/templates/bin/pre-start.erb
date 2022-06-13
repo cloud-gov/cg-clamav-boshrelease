@@ -58,6 +58,9 @@ echo "Pre-start started"
 <% end %>
 
 <% if_link('clamav-config') do |clamavconfig| %>
+  <% if p("clamav.schedule_enabled").to_s == "true" %>
+    exit
+  <% end %>
   <% if clamavconfig.p("clamav-config.schedule_enabled").to_s == "true" %>
     export MINUTE=$(expr $RANDOM % 60)
     export HOUR=$(shuf -i <%= clamavconfig.p('clamav-config.nightly.scan.start') %>-<%= clamavconfig.p('clamav-config.nightly.scan.stop') %> -n 1)

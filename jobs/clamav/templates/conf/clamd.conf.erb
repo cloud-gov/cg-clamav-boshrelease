@@ -37,7 +37,7 @@ OnAccessExcludeUname root
 OnAccessExcludeUname clamd
 OnAccessExcludeRootUID true
 <% end %>
-<% if p("clamav.on_access_enabled").to_s != "true" %>
+<% if p("clamav.on_access_enabled").to_s == "false" %>
    <% if_link('clamav-config') do |clamavconfig| %>
      <% clamavconfig.if_p("clamav-config.on_access_enabled").to_s == "true" %>
 # clamav-config job onaccess block
@@ -56,7 +56,6 @@ OnAccessExcludeUname clamd
 OnAccessExcludeRootUID true
      <% end %>
    <% end %>
-<% end %>
 # User include access paths
 <% if_p("clamav.include_directories") do |indirs| %>
 <% indirs.each do |indir| %>
