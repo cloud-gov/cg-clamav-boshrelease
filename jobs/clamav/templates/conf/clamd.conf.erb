@@ -37,8 +37,9 @@ OnAccessExcludeUname root
 OnAccessExcludeUname clamd
 OnAccessExcludeRootUID true
 <% end %>
-<% if clamavconfig.p("clamav.on_access_enabled").to_s != "true" %>
+<% if p("clamav.on_access_enabled").to_s != "true" %>
    <% if_link('clamav-config') do |clamavconfig| %>
+    <% clamavconfig.if_p("clamav-config.on_access_enabled").to_s == "true" %>
 # clamav-config job onaccess block
 OnAccessMountPath /
 OnAccessMountPath /home
@@ -53,6 +54,7 @@ OnAccessIncludePath /var/vcap/jobs
 OnAccessExcludeUname root
 OnAccessExcludeUname clamd
 OnAccessExcludeRootUID true
+    <% end %>
   <% end %>
 <% end %>
 # User include access paths
