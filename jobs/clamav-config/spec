@@ -7,7 +7,6 @@ provides:
     properties:
     - clamav-config.additional_options
     - freshclam-config.additional_options
-    - clamav-config.base_directories
     - clamav-config.include_directories
     - clamav-config.exclude_directories
     - clamav-config.on_access_enabled
