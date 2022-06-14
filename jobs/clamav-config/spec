@@ -39,10 +39,10 @@ properties:
     default: false
   clamav-config.nightly.scan.start:
     description: "Start hour to schedule nightly ClamAV scan - based on timezone in VM"
-    default: 12
+    default: 0
   clamav-config.nightly.scan.stop:
     description: "Stop hour to schedule nightly ClamAV scan - based on timezone in VM"
-    default: 18
+    default: 5
   clamav-config.schedule_enabled:
     description: "Enable scheduled scanning with ClamAV"
     default: false

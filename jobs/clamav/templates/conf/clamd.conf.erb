@@ -41,20 +41,20 @@ OnAccessExcludeRootUID true
 <% if p("clamav.on_access_enabled").to_s != "true" %>
  <% if_link('clamav-config') do |clamavconfig| %>
  <% if clamavconfig.p("clamav-config.on_access_enabled").to_s == "true" %>
- # clamav-config job onaccess block
- OnAccessMountPath /
- OnAccessMountPath /home
- OnAccessMountPath /var/vcap/data
- OnAccessMountPath /var/vcap/store
- OnAccessDisableDDD false
- OnAccessPrevention false
- OnAccessIncludePath /var/vcap/data
- OnAccessIncludePath /var/vcap/store
- OnAccessIncludePath /var/vcap/packages
- OnAccessIncludePath /var/vcap/jobs
- OnAccessExcludeUname root
- OnAccessExcludeUname clamd
- OnAccessExcludeRootUID true
+# clamav-config job onaccess block
+OnAccessMountPath /
+OnAccessMountPath /home
+OnAccessMountPath /var/vcap/data
+OnAccessMountPath /var/vcap/store
+OnAccessDisableDDD false
+OnAccessPrevention false
+OnAccessIncludePath /var/vcap/data
+OnAccessIncludePath /var/vcap/store
+OnAccessIncludePath /var/vcap/packages
+OnAccessIncludePath /var/vcap/jobs
+OnAccessExcludeUname root
+OnAccessExcludeUname clamd
+OnAccessExcludeRootUID true
  <% end %>
  <% end %>
 <% end %>
