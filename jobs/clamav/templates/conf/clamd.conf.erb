@@ -45,6 +45,7 @@ OnAccessIncludePath <%= indir %>
 <% if_p("clamav.exclude_directories") do |exdirs| %>
 <% exdirs.each do |exdir| %>
 OnAccessExcludePath <%= exdir %>
+ExcludePath <%= exdir %>
 <% end %>
 <% end %>
 # Additional Options
