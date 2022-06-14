@@ -92,9 +92,9 @@ OnAccessExcludePath <%= cexdir %>
 <% end %>
 <% end %>
 <% if_link('clamav-config') do |clamavconfig| %>
-  <% clamavconfig.if_p("clamav-config.additional_options") do |addopt| %>
+<% clamavconfig.if_p("clamav-config.additional_options") do |addopt| %>
 <% addopt.each do |opt| %>
 <%= opt %>
-  <% end %>
-  <% end %>
+<% end %>
+<% end %>
 <% end %>
