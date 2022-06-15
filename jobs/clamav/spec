@@ -1,5 +1,10 @@
 ---
 name: clamav
+consumes:
+  - name: clamav-config
+    type: clamav-config
+    optional: true
+
 packages:
 - clamav
 templates:
@@ -54,3 +59,7 @@ properties:
   clamav.alert_on_stale_defs:
     description: "Use monit to alert about database update failures"
     default: true
+  clamav.freshclam.additional_options:
+    description: "Additional freshclam options to be added to freshclam.conf - yml array"
+    example: |
+       - PrivateMirror http://mirror.mylan:8000 

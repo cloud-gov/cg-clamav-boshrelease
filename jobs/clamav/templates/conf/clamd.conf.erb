@@ -20,9 +20,9 @@ ScanPE false
 ScanMail false
 HeuristicScanPrecedence true
 ForceToDisk false
-ExcludePath ^/var/vcap/data/packages/
 TemporaryDirectory /var/vcap/data/tmp
 <% if p("clamav.on_access_enabled").to_s == "true" %>
+# clamav job onaccess block
 OnAccessMountPath /
 OnAccessMountPath /home
 OnAccessMountPath /var/vcap/data
@@ -30,16 +30,47 @@ OnAccessMountPath /var/vcap/store
 OnAccessDisableDDD false
 OnAccessPrevention false
 OnAccessIncludePath /var/vcap/data
+OnAccessIncludePath /var/vcap/store
+OnAccessIncludePath /var/vcap/packages
+OnAccessIncludePath /var/vcap/jobs
 OnAccessExcludeUname root
 OnAccessExcludeUname clamd
 OnAccessExcludeRootUID true
-OnAccessExcludePath ^/var/vcap/data/packages/
 <% end %>
+
+<% if p("clamav.on_access_enabled").to_s != "true" %>
+ <% if_link('clamav-config') do |clamavconfig| %>
+ <% if clamavconfig.p("clamav-config.on_access_enabled").to_s == "true" %>
+# clamav-config job onaccess block
+OnAccessMountPath /
+OnAccessMountPath /home
+OnAccessMountPath /var/vcap/data
+OnAccessMountPath /var/vcap/store
+OnAccessDisableDDD false
+OnAccessPrevention false
+OnAccessIncludePath /var/vcap/data
+OnAccessIncludePath /var/vcap/store
+OnAccessIncludePath /var/vcap/packages
+OnAccessIncludePath /var/vcap/jobs
+OnAccessExcludeUname root
+OnAccessExcludeUname clamd
+OnAccessExcludeRootUID true
+ <% end %>
+ <% end %>
+<% end %>
+
 # User include access paths
 <% if_p("clamav.include_directories") do |indirs| %>
 <% indirs.each do |indir| %>
 OnAccessIncludePath <%= indir %>
 <% end %>
+<% end %>
+<% if_link('clamav-config') do |clamavconfig| %>
+    <% clamavconfig.if_p("clamav-config.include_directories") do |cindirs| %>
+<% cindirs.each do |cindir| %>
+OnAccessIncludePath <%= cindir %>
+  <% end %>
+  <% end %>
 <% end %>
 # User exlude access paths
 <% if_p("clamav.exclude_directories") do |exdirs| %>
@@ -48,9 +79,23 @@ OnAccessExcludePath <%= exdir %>
 ExcludePath <%= exdir %>
 <% end %>
 <% end %>
+<% if_link('clamav-config') do |clamavconfig| %>
+    <% clamavconfig.if_p("clamav-config.exclude_directories") do |cexdirs| %>
+<% cexdirs.each do |cexdir| %>
+OnAccessExcludePath <%= cexdir %>
+  <% end %>
+  <% end %>
+<% end %>
 # Additional Options
 <% if_p("clamav.additional_options") do |aopt| %>
 <% aopt.each do |opt| %>
 <%= opt %>
+<% end %>
+<% end %>
+<% if_link('clamav-config') do |clamavconfig| %>
+<% clamavconfig.if_p("clamav-config.additional_options") do |addopt| %>
+<% addopt.each do |opt| %>
+<%= opt %>
+<% end %>
 <% end %>
 <% end %>
