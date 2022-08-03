@@ -26,6 +26,9 @@ properties:
   clamav.dbMirror2:
     description: "Secondary virus definition update host"
     default: database.clamav.net
+  clamav.maxthreads:
+    description: "Max number of threads clamd will use. Each thread can take a whole CPU"
+    default: 2
   clamav.on_access_enabled:
     description: "Enable on-access scanning with ClamAV"
     default: false
