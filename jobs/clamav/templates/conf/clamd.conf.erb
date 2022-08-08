@@ -8,7 +8,7 @@ PidFile /var/vcap/sys/run/clamav/clamd.pid
 DatabaseDirectory /var/vcap/data/clamav/database
 LocalSocket /var/vcap/sys/run/clamav/clamd.ctl
 MaxConnectionQueueLength 15
-MaxThreads 12
+MaxThreads <%= properties.clamav.maxthreads %>
 ReadTimeout 180
 CommandReadTimeout 5
 SendBufTimeout 200
