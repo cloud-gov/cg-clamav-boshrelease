@@ -1,0 +1,10 @@
+---
+blobstore:
+  provider: s3
+  options:
+    bucket_name: ((/buckets.bosh_release_blobstore))
+    region: ((/aws.region))
+final_name: clamav
+
+
+
