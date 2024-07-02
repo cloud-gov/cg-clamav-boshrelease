@@ -24,7 +24,7 @@ echo "Pre-start started"
     <% indirs.each do |indir| %>
     export SCANDIRS="<%= indir %> $SCANDIRS"
     <% end %>
-    export FULLSCANDIRS="-m /var/vcap/jobs /var/vcap/data /var/vcap/store /var/vcap/packages $SCANDIRS"
+    export FULLSCANDIRS="-m $SCANDIRS"
   <% end %>
 
   export MINUTE=$(expr $RANDOM % 60)
