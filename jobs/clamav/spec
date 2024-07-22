@@ -66,3 +66,5 @@ properties:
     description: "Additional freshclam options to be added to freshclam.conf - yml array"
     example: |
        - PrivateMirror http://mirror.mylan:8000 
+  clamav.placeholder:
+    description: placeholder
