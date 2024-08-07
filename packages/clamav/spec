@@ -1,4 +1,8 @@
 ---
 name: clamav
+dependencies:
+  - python-3.12
+  - rust
+
 files:
-- clamav/clamav-0.*.tar.gz
+- clamav/clamav-1.*.tar.gz
