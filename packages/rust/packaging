@@ -10,7 +10,7 @@ export RUST_HOME=/var/vcap/packages/rust
 export RUST_DATA=/var/vcap/data/rust
 export COMPILE_HOME=`pwd`
 
-tar xvzf rust/rust-*-x86_64-unknown-linux-gnu.tar.xz --strip-components=1 --exclude=rust-docs
+tar xvf rust/rust-*-x86_64-unknown-linux-gnu.tar.xz --strip-components=1 --exclude=rust-docs
 cd rust*
 sudo ./install.sh --without=rust-docs
 
