@@ -1,0 +1,22 @@
+set -e # exit immediately if a simple command exits with a non-zero status
+set -u # report the usage of uninitialized variables
+mkdir -p /var/vcap/packages/rust
+mkdir -p /var/vcap/data/rust
+# Available variables
+# $BOSH_COMPILE_TARGET - where this package & spec'd source files are available
+# $BOSH_INSTALL_TARGET - where you copy/install files to be included in package
+export HOME=/var/vcap
+export RUST_HOME=/var/vcap/packages/rust
+export RUST_DATA=/var/vcap/data/rust
+export COMPILE_HOME=`pwd`
+
+tar xvzf rust/rust-*-x86_64-unknown-linux-gnu.tar.xz --strip-components=1 --exclude=rust-docs
+cd rust*
+sudo ./install.sh --without=rust-docs
+
+cd ..
+rm -rf rust*
+
+
+
+cd $COMPILE_HOME
