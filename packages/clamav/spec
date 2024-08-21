@@ -6,3 +6,4 @@ dependencies:
 
 files:
 - clamav/clamav-1.*.tar.gz
+- clamav/rust-*-x86_64-unknown-linux-gnu.tar.xz

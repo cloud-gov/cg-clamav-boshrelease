@@ -1,4 +1,4 @@
-set -e # exit immediately if a simple command exits with a non-zero status
+#set -e # exit immediately if a simple command exits with a non-zero status
 set -u # report the usage of uninitialized variables
 mkdir -p /var/vcap/packages/clamav
 mkdir -p /var/vcap/data/clamav
@@ -10,11 +10,44 @@ export CLAMAV_HOME=/var/vcap/packages/clamav
 export CLAMAV_DATA=/var/vcap/data/clamav
 export COMPILE_HOME=`pwd`
 
+export RUST_HOME=/var/vcap/packages/rust
+export RUST_DATA=/var/vcap/data/rust
+export TMP_RUST_DIR=/tmp/rust
+
+
+tar xvf rust/rust-*-x86_64-unknown-linux-gnu.tar.xz -C "${TMP_RUST_DIR}" --strip-components=1 --exclude=rust-docs
+cd rust*
+sudo ./install.sh --without=rust-docs
+
+cd /tmp
+rm -rf "${TMP_RUST_DIR}"
+
+
+
+cd $COMPILE_HOME
+
+# start clamav compile post rust
+
 tar xvzf clamav/clamav*.tar.gz
 cd clamav-*
-./configure --prefix=$CLAMAV_HOME --disable-clamav
-make
-make install
+
+#./configure --prefix=$CLAMAV_HOME --disable-clamav
+#make
+#make install
+
+mkdir build && cd build
+cmake .. \
+    -D CMAKE_INSTALL_PREFIX=/usr \
+    -D CMAKE_INSTALL_LIBDIR=lib \
+    -D APP_CONFIG_DIRECTORY=/etc/clamav \
+    -D DATABASE_DIRECTORY=$CLAMAV_DATA/database \
+    -D ENABLE_JSON_SHARED=OFF
+cmake --build .
+ctest
+sudo cmake --build . --target install --prefix $CLAMAV_HOME
+
+
+
 
 # do an initial sync of the virus definition at compile time
 mkdir -p $CLAMAV_DATA/database

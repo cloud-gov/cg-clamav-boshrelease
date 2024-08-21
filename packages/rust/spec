@@ -1,4 +1,0 @@
----
-name: rust
-files:
-- rust/rust-*-x86_64-unknown-linux-gnu.tar.xz
