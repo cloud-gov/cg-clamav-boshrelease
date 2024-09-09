@@ -1,3 +1,6 @@
 clamav/clamav-1.0.6.tar.gz:
   size: 50728068
   sha: sha256:12dcd842b6c46e5a9fdf2f5c16304efafe53310ac4605990465651b0c42227b2
+clamav/rust-1.80.0-x86_64-unknown-linux-gnu.tar.xz:
+  size: 167237928
+  sha: sha256:ea59f08e38ca4abed144be38de629c662a8f714548e7c061fca40b4a139f9170

@@ -12,15 +12,15 @@ export COMPILE_HOME=`pwd`
 
 export RUST_HOME=/var/vcap/packages/rust
 export RUST_DATA=/var/vcap/data/rust
-export TMP_RUST_DIR=/tmp/rust
 
 
-tar xvf rust/rust-*-x86_64-unknown-linux-gnu.tar.xz -C "${TMP_RUST_DIR}" --strip-components=1 --exclude=rust-docs
-cd rust*
+mkdir rust-tmp
+tar xvf rust-*-x86_64-unknown-linux-gnu.tar.xz -C ./rust-tmp --strip-components=1 --exclude=rust-docs
+cd rust-tmp
 sudo ./install.sh --without=rust-docs
 
-cd /tmp
-rm -rf "${TMP_RUST_DIR}"
+cd ..
+rm -rf ./rust-tmp
 
 
 
@@ -47,7 +47,7 @@ ctest
 sudo cmake --build . --target install --prefix $CLAMAV_HOME
 
 
-
+sleep 10000
 
 # do an initial sync of the virus definition at compile time
 mkdir -p $CLAMAV_DATA/database
@@ -70,3 +70,5 @@ touch $CLAMAV_DATA/database/defs_are_current
 rm $TMPCONF
 
 cd $COMPILE_HOME
+
+sleep 10000
