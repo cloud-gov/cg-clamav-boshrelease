@@ -43,6 +43,8 @@ cd ..
 # rm -rf $CHECK_TMP
 
 # Install PCRE2
+cd $COMPILE_HOME
+
 mkdir -p $PCRE_TMP
 tar xzf clamav/pcre2-*.tar.gz -C $PCRE_TMP
 cd $PCRE_TMP/pcre2-*
@@ -56,6 +58,8 @@ cd ..
 
 # Install JSON-C
 
+cd $COMPILE_HOME
+
 mkdir -p $JSONC_TMP
 tar xzf clamav/json-c-*.tar.gz -C $JSONC_TMP
 cd json-c*
@@ -66,6 +70,7 @@ make install
 cd ..
 # rm -rf $JSONC_TMP
 
+# Install ClamAV
 cd $COMPILE_HOME
 
 # start clamav compile post rust
