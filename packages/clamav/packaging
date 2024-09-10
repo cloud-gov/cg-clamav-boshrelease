@@ -1,5 +1,5 @@
 #set -e # exit immediately if a simple command exits with a non-zero status
-set -u # report the usage of uninitialized variables
+set -ux # report the usage of uninitialized variables
 mkdir -p /var/vcap/packages/clamav
 mkdir -p /var/vcap/data/clamav
 # Available variables
@@ -22,7 +22,9 @@ sudo ./install.sh --without=rust-docs
 cd ..
 rm -rf ./rust-tmp
 
-
+until [ -e /tmp/tester.txt ]; do
+  sleep 1
+done
 
 cd $COMPILE_HOME
 
@@ -47,7 +49,9 @@ ctest
 sudo cmake --build . --target install --prefix $CLAMAV_HOME
 
 
-sleep 10000
+until [ -e /tmp/tester2.txt ]; do
+  sleep 1
+done
 
 # do an initial sync of the virus definition at compile time
 mkdir -p $CLAMAV_DATA/database
@@ -71,4 +75,6 @@ rm $TMPCONF
 
 cd $COMPILE_HOME
 
-sleep 10000
+until [ -e /tmp/tester3.txt ]; do
+  sleep 1
+done
