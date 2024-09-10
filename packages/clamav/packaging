@@ -12,19 +12,59 @@ export COMPILE_HOME=`pwd`
 
 export RUST_HOME=/var/vcap/packages/rust
 export RUST_DATA=/var/vcap/data/rust
+export RUST_TMP=$BOSH_COMPILE_TARGET/clamav/rust-tmp
+export CHECK_TMP=$BOSH_COMPILE_TARGET/clamav/check-tmp
+export PCRE_TMP=$BOSH_COMPILE_TARGET/clamav/pcre-tmp
+export JSONC_TMP=$BOSH_COMPILE_TARGET/clamav/jsonc-tmp
 
+echo $BOSH_COMPILE_TARGET > pickles_compile.txt
+echo $BOSH_INSTALL_TARGET > pickles_install.txt
 
-mkdir rust-tmp
-tar xvf rust-*-x86_64-unknown-linux-gnu.tar.xz -C ./rust-tmp --strip-components=1 --exclude=rust-docs
-cd rust-tmp
+# Install Rust
+mkdir -p $RUST_TMP
+tar xvf clamav/rust-*-x86_64-unknown-linux-gnu.tar.xz -C $RUST_TMP --strip-components=1 --exclude=rust-docs
+cd $RUST_TMP
 ./install.sh --without=rust-docs
 
 cd ..
-rm -rf ./rust-tmp
+#rm -rf ./rust-tmp
 
-until [ -e /tmp/tester.txt ]; do
-  sleep 1
-done
+# Install Check
+cd $COMPILE_HOME
+
+mkdir -p $CHECK_TMP
+tar xvf clamav/check-*.tar.gz -C $CHECK_TMP
+cd $CHECK_TMP/check-*
+mkdir build && cd build
+cmake ../
+make
+make install
+cd ..
+# rm -rf $CHECK_TMP
+
+# Install PCRE2
+mkdir -p $PCRE_TMP
+tar xzf clamav/pcre2-*.tar.gz -C $PCRE_TMP
+cd $PCRE_TMP/pcre2-*
+./configure \
+    --enable-jit \
+    --prefix ${BOSH_INSTALL_TARGET}
+make
+make install
+cd ..
+# rm -rf $PCRE_TMP
+
+# Install JSON-C
+
+mkdir -p $JSONC_TMP
+tar xzf clamav/json-c-*.tar.gz -C $JSON_TMP
+cd json-c*
+mkdir build && cd build
+cmake ../
+make
+make install
+cd ..
+# rm -rf $JSONC_TMP
 
 cd $COMPILE_HOME
 
@@ -43,15 +83,10 @@ cmake .. \
     -D CMAKE_INSTALL_LIBDIR=lib \
     -D APP_CONFIG_DIRECTORY=$CLAMAV_HOME \
     -D DATABASE_DIRECTORY=$CLAMAV_DATA/database \
-    -D ENABLE_JSON_SHARED=OFF
+    -D ENABLE_JSON_SHARED=OFF \
+    -D ENABLE_MILTER=OFF
 cmake --build .
-ctest
-sudo cmake --build . --target install --prefix $CLAMAV_HOME
-
-
-until [ -e /tmp/tester2.txt ]; do
-  sleep 1
-done
+cmake --build . --target install
 
 # do an initial sync of the virus definition at compile time
 mkdir -p $CLAMAV_DATA/database

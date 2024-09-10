@@ -6,3 +6,6 @@ dependencies:
 files:
 - clamav/clamav-1.*.tar.gz
 - clamav/rust-*-x86_64-unknown-linux-gnu.tar.xz
+- clamav/check-*.tar.gz
+- clamav/pcre2-*.tar.gz
+- clamav/json-c-*.tar.gz
