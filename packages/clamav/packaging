@@ -39,9 +39,9 @@ cd clamav-*
 
 mkdir build && cd build
 cmake .. \
-    -D CMAKE_INSTALL_PREFIX=/usr \
+    -D CMAKE_INSTALL_PREFIX=$CLAMAV_HOME \
     -D CMAKE_INSTALL_LIBDIR=lib \
-    -D APP_CONFIG_DIRECTORY=/etc/clamav \
+    -D APP_CONFIG_DIRECTORY=$CLAMAV_HOME \
     -D DATABASE_DIRECTORY=$CLAMAV_DATA/database \
     -D ENABLE_JSON_SHARED=OFF
 cmake --build .
