@@ -62,7 +62,7 @@ cd $COMPILE_HOME
 
 mkdir -p $JSONC_TMP
 tar xzf clamav/json-c-*.tar.gz -C $JSONC_TMP
-cd json-c*
+cd $JSONC_TMP/json-c*
 mkdir build && cd build
 cmake ../
 make
