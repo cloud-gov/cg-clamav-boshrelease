@@ -57,7 +57,7 @@ cd ..
 # Install JSON-C
 
 mkdir -p $JSONC_TMP
-tar xzf clamav/json-c-*.tar.gz -C $JSON_TMP
+tar xzf clamav/json-c-*.tar.gz -C $JSONC_TMP
 cd json-c*
 mkdir build && cd build
 cmake ../
