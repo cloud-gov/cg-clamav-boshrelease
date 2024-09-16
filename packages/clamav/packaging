@@ -1,7 +1,8 @@
 #set -e # exit immediately if a simple command exits with a non-zero status
-set -ux # report the usage of uninitialized variables
+set -eu # report the usage of uninitialized variables
 mkdir -p /var/vcap/packages/clamav
 mkdir -p /var/vcap/data/clamav
+
 # Available variables
 # $BOSH_COMPILE_TARGET - where this package & spec'd source files are available
 # $BOSH_INSTALL_TARGET - where you copy/install files to be included in package
@@ -9,7 +10,6 @@ export HOME=/var/vcap
 export CLAMAV_HOME=/var/vcap/packages/clamav
 export CLAMAV_DATA=/var/vcap/data/clamav
 export COMPILE_HOME=`pwd`
-
 export RUST_HOME=/var/vcap/packages/rust
 export RUST_DATA=/var/vcap/data/rust
 export RUST_TMP=$BOSH_COMPILE_TARGET/clamav/rust-tmp
@@ -17,17 +17,13 @@ export CHECK_TMP=$BOSH_COMPILE_TARGET/clamav/check-tmp
 export PCRE_TMP=$BOSH_COMPILE_TARGET/clamav/pcre-tmp
 export JSONC_TMP=$BOSH_COMPILE_TARGET/clamav/jsonc-tmp
 
-echo $BOSH_COMPILE_TARGET > pickles_compile.txt
-echo $BOSH_INSTALL_TARGET > pickles_install.txt
-
 # Install Rust
 mkdir -p $RUST_TMP
 tar xvf clamav/rust-*-x86_64-unknown-linux-gnu.tar.xz -C $RUST_TMP --strip-components=1 --exclude=rust-docs
 cd $RUST_TMP
 ./install.sh --without=rust-docs
-
 cd ..
-#rm -rf ./rust-tmp
+rm -rf ./rust-tmp
 
 # Install Check
 cd $COMPILE_HOME
@@ -40,7 +36,7 @@ cmake ../
 make
 make install
 cd ..
-# rm -rf $CHECK_TMP
+rm -rf $CHECK_TMP
 
 # Install PCRE2
 cd $COMPILE_HOME
@@ -54,10 +50,9 @@ cd $PCRE_TMP/pcre2-*
 make
 make install
 cd ..
-# rm -rf $PCRE_TMP
+rm -rf $PCRE_TMP
 
 # Install JSON-C
-
 cd $COMPILE_HOME
 
 mkdir -p $JSONC_TMP
@@ -68,20 +63,13 @@ cmake ../
 make
 make install
 cd ..
-# rm -rf $JSONC_TMP
+rm -rf $JSONC_TMP
 
 # Install ClamAV
 cd $COMPILE_HOME
 
-# start clamav compile post rust
-
 tar xvzf clamav/clamav*.tar.gz
 cd clamav-*
-
-#./configure --prefix=$CLAMAV_HOME --disable-clamav
-#make
-#make install
-
 mkdir build && cd build
 cmake .. \
     -D CMAKE_INSTALL_PREFIX=$CLAMAV_HOME \
@@ -114,7 +102,3 @@ touch $CLAMAV_DATA/database/defs_are_current
 rm $TMPCONF
 
 cd $COMPILE_HOME
-
-until [ -e /tmp/tester3.txt ]; do
-  sleep 1
-done
