@@ -2,7 +2,7 @@
 
 If you need the [ClamAV](https://www.clamav.net/) anti-virus product in your infrastructure then deploy this BOSH release.
 
-## Usage
+## Usage 
 
 ### Create & Upload the BOSH release
 
