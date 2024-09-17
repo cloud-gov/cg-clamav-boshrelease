@@ -104,5 +104,5 @@ rm $TMPCONF
 
 cd $COMPILE_HOME
 
-#remove html docs
+# remove html docs
 rm -rf /var/vcap/packages/clamav/share/doc/
